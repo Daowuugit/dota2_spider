@@ -14,6 +14,7 @@
   物品：items/ + name[5:] + '.png'
   英雄：hroes/ + name[14:] + '.png'
   技能：abilities/ + name + '.png'
+7. Spider为爬虫代码，可使用crontab定时获取数据。
 
 # 数据库使用
     
@@ -76,4 +77,73 @@ create table dota2_curPatch(
     ability_id int,           -- 物品或技能id
     hero_id int                    -- 英雄id
 );
+```
+
+## json设计
+
+```json
+{
+    "patch_name": ,
+    "patch_number": ,
+    "patch_timestamp": ,
+    "generic": [
+        {
+            "indent_level": ,
+            "note": ,
+            "info": ,
+        },
+    ],
+    "items": [
+        {
+            "name_loc": ,
+            "url": ,
+            "notes": [
+                {
+                    "indent_level": ,
+                    "note": ,
+                },
+            ],
+        },
+    ],
+    "neutral_items": [
+        {
+            "name_loc": ,
+            "notes": [
+                {
+                    "indent_level": ,
+                    "note": ,
+                },
+            ],
+        },
+    ],
+    "heroes": [
+        {
+            "name_loc": ,
+            "hero_notes": [
+                {
+                    "indent_level": ,
+                    "note": ,
+                },
+            ],
+            "abilities": [
+                {
+                    "name_loc": ,
+                    "ability_notes": [
+                        {
+                            "indent_level": ,
+                            "note": ,
+                        },
+                    ],
+                },
+            ],
+            "talent_notes": [
+                {
+                     "indent_level": ,
+                     "note": ,
+                },
+            ],
+        }
+    ],
+}
+
 ```

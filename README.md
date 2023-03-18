@@ -17,7 +17,7 @@
    - 英雄：hroes/ + name[14:] + '.png'
    - 技能：abilities/ + name + '.png'
 7. Spider为爬虫代码，可使用crontab定时获取数据。
-   - `* * */1 * * python3 /Users/xxx/Spider.py`
+   - `0 0 * * * python3 /Users/xxx/Spider.py`
 
 # 数据库使用
     

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/css/dota2/img.css">
+    <script src="/static/javascript/dota2/img.js" defer></script>
+</head>
+
+
+<body style="width:100%;margin:0;background-color:black" data-aos-easing="'ease" data-aos-duration="400"
+      data-aos-delay="0">
+<div id="dota-react-root" style="width:100%">
+    <div class="patchnotespage-PatchNotesPage"
+         style="background-image: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/featured.jpg');">
+
+
+        <div class="patchnotespage-Header">
+            <div class="patchnotespage-Label">游戏性更新</div>
+            <div class="patchnotespage-NotesTitle">{{ patch_name }}</div>
+            <div class="patchnotespage-SelectorContainer">
+                <select id="patch_select" class="patchnotespage-Selector">
+                    {% for patch in patch_names %}
+                        {% if patch.patch_name != patch_name %}
+                            <option value="{{ patch.patch_name }}">{{ patch.patch_name }}</option>
+                        {% else %}
+                            <option value="{{ patch.patch_name }}" selected>{{ patch.patch_name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="patchnotespage-Body">
+
+            {% if generic %}
+                <div class="patchnotespage-UpdatesSection">
+                    <div class="patchnotespage-PatchNotesHeaderLabel">综合改动</div>
+                    <div class="patchnotespage-PatchNotesList">
+                        {% for note in generic %}
+                            {% if note.note == '<br>' %}
+                                <br>
+                            {% else %}
+                                <div class="patchnotespage-PatchNoteGeneric" style="margin-bottom:0px;">
+                                    <div class="patchnotespage-NoteElement">
+                                        <div style="width:20px; min-width:20px;"></div>
+                                        <div class="patchnotespage-Dot"></div>
+                                        <div class="patchnotespage-Note">
+                                            {{ note.note }}
+                                            {% if note.info %}
+                                                <div class="patchnotespage-InfoBlock">
+                                                    <div class="patchnotespage-InfoBlockIcon" data-tip="true"
+                                                         data-for="infoTip0" currentitem="false"></div>
+                                                    <dic class="img-text">{{ note.info }}</dic>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if items %}
+                <div class="patchnotespage-UpdatesSection">
+                    <div class="patchnotespage-PatchNotesHeaderLabel">物品改动</div>
+                    <div class="patchnotespage-PatchNotesList">
+                        {% for item in items %}
+                            <div class="patchnotespage-PatchNoteItem" style="padding-bottom:60px">
+                                <div class="patchnotespage-ItemHeader">
+                                    <div class="patchnotespage-ItemImage"
+                                         style="background-image: url({{ item.url }});"></div>
+                                    <div class="patchnotespage-RightSection">
+                                        <div class="patchnotespage-ItemName">{{ item.name_loc }}</div>
+                                    </div>
+                                </div>
+                                {% for note in item.notes %}
+                                    <div class="patchnotespage-Note">
+                                        <div class="patchnotespage-NoteElement">
+                                            <div class="patchnotesppage-Dot"></div>
+                                            <div class="patchnotespage-Note">{{ note.note }}</div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+
+
+            {% if neutral_items %}
+                <div class="patchnotespage-UpdatesSection">
+                    <div class="patchnotespage-PatchNotesHeaderLabel">中立物品改动</div>
+                    <div class="patchnotespage-PatchNotesList">
+                        {% for neutral_item in neutral_items %}
+                            <div class="patchnotespage-PatchNoteItem" style="padding-bottom:60px">
+                                <div class="patchnotespage-ItemHeader">
+                                    <div class="patchnotespage-ItemImage"
+                                         style="background-image: url({{ neutral_item.url }});"></div>
+                                    <div class="patchnotespage-RightSection">
+                                        <div class="patchnotespage-ItemName">{{ neutral_item.name_loc }}</div>
+                                    </div>
+                                </div>
+                                {% for note in neutral_item.notes %}
+                                    <div class="patchnotespage-Note">
+                                        <div class="patchnotespage-NoteElement">
+                                            <div class="patchnotesppage-Dot"></div>
+                                            <div class="patchnotespage-Note">{{ note.note }}</div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if heroes %}
+                <div class="patchnotespage-UpdatesSection">
+                    <div class="patchnotespage-PatchNotesHeaderLabel">英雄改动</div>
+                    <div class="patchnotespage-PatchNotesList">
+                        {% for hero in heroes %}
+                            <div class="patchnotespage-PatchNoteHero">
+                                <a class="patchnotespage-HeroHeader">
+                                    <div class="patchnotespage-HeroImage"
+                                         style="background-image: url({{ hero.url }});"></div>
+                                    <div class="patchnotespage-RightSection">
+                                        <div class="patchnotespage-HeroName">{{ hero.name_loc }}</div>
+                                        <div class="patchnotespage-UpdateSubtitle"></div>
+                                    </div>
+                                </a>
+
+                                {% if hero.notes %}
+                                    <div class="patchnotespage-Notes">
+                                        {% for note in hero.notes %}
+                                            <div class="patchnotespage-NoteElement">
+                                                <div class="patchnotespage-Dot"></div>
+                                                <div class="patchnotespage-Note">{{ note.note }}</div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                                {% if hero.abilities %}
+                                    <div class="patchnotespage-Notes">
+                                        {% for ability in hero.abilities %}
+                                            <div class="patchnotespage-AbilityNote">
+                                                <div class="patchnotespage-AbilityIcon"
+                                                     style="background-image: url({{ ability.url }});"></div>
+                                                <div class="patchnotespage-RightSection">
+                                                    <div class="patchnotespage-AbilityName">{{ ability.name_loc }}</div>
+                                                    {% for note in ability.ability_notes %}
+                                                        <div class="patchnotespage-NoteElement">
+                                                            <div style="width: 20px; min-width: 20px;"></div>
+                                                            <div class="patchnotespage-Dot"></div>
+                                                            <div class="patchnotespage-Note">{{ note.note }}</div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                                {% if hero.talent_notes %}
+                                    <div class="patchnotespage-TalentNotes">
+                                        <div class="patchnotespage-TalentNoteHeader">天赋</div>
+                                        <div class="patchnotespage-Notes">
+                                            {% for note in hero.talent_notes %}
+                                                <div class="patchnotespage-NoteElement">
+                                                    <div class="patchnotespage-Dot"></div>
+                                                    <div class="patchnotespage-Note">{{ note.note }}</div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

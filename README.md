@@ -1,20 +1,21 @@
 # 接口分析
-1. /datafeed/patchnoteslist?language=schinese
+1. `/datafeed/patchnoteslist?language=schinese`
   返回所有的版本信息
-2. /datafeed/itemlist?language=schinese
+2. `/datafeed/itemlist?language=schinese`
   返回所有的物品信息
-3. /datafeed/herolist?language=schinese
+3. `/datafeed/herolist?language=schinese`
   返回所有的英雄信息
-4. /datafeed/abilitylist?language=schinese
+4. `/datafeed/abilitylist?language=schinese`
   返回所有的技能信息
-5. /datafeed/patchnotes?version=7.23d&language=schinese
+5. `/datafeed/patchnotes?version=7.23d&language=schinese`
 返回当前版本的公告信息
 6. 图片
-  https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/
-  物品：items/ + name[5:] + '.png'
-  英雄：hroes/ + name[14:] + '.png'
-  技能：abilities/ + name + '.png'
+  `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/`
+   - 物品：items/ + name[5:] + '.png'
+   - 英雄：hroes/ + name[14:] + '.png'
+   - 技能：abilities/ + name + '.png'
 7. Spider为爬虫代码，可使用crontab定时获取数据。
+   - `* * */1 * * python3 /Users/xxx/Spider.py`
 
 # 数据库使用
     
@@ -38,11 +39,11 @@
 ```sql
 -- 英雄表格
 create table dota2_heroes(
-    id int primary key not null,    -- id
+    id int primary key not null,   -- id
     name varchar not null,         -- 名字
     name_loc varchar(200),         -- 中文名字
     name_english_loc varchar(200), -- 英文名字
-    primary_attr int,               --
+    primary_attr int,               
     complexity int
 );
 
@@ -67,19 +68,19 @@ create table dota2_patches(
 create type type1 as enum('generic', 'items', 'neutral_items', 'heroes', 'neutral_creeps'); -- 综合，物品，中立，英雄    
 create type type2 as enum('hero_note', 'ability_note', 'talent_note'); -- 英雄、技能、天赋
 create table dota2_curPatch(
-    name_id varchar(200) primary key not null, -- patch_name_id + cur_type1 + 序号
-    indent_level int not null,     -- 
-    note text not null,            -- 公告
-    info text,
+    name_id varchar(200) primary key not null, -- patch_name_id + cur_type1 + 序号，主键
+    indent_level int not null,     
+    note text not null,            -- 公告内容
+    info text,                     -- 详细说明
     patch_name_id varchar(200) references dota2_patches(patch_name),      -- 版本名，外键
-    cur_type1 type1 not null,      -- 改动类型
-    cur_type2 type2,               -- 改动类型2
+    cur_type1 type1 not null,      -- 类型1
+    cur_type2 type2,               -- 在类型1为英雄的基础上，类型2
     ability_id int,           -- 物品或技能id
     hero_id int                    -- 英雄id
 );
 ```
 
-## json设计
+## 页面展示逻辑
 
 ```json
 {
@@ -145,5 +146,4 @@ create table dota2_curPatch(
         }
     ],
 }
-
 ```

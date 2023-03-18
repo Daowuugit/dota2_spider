@@ -109,6 +109,7 @@ create table dota2_curPatch(
     "neutral_items": [
         {
             "name_loc": ,
+            "url": ,
             "notes": [
                 {
                     "indent_level": ,
@@ -120,6 +121,7 @@ create table dota2_curPatch(
     "heroes": [
         {
             "name_loc": ,
+            "url": ,
             "hero_notes": [
                 {
                     "indent_level": ,
@@ -129,6 +131,7 @@ create table dota2_curPatch(
             "abilities": [
                 {
                     "name_loc": ,
+                    "url": ,
                     "ability_notes": [
                         {
                             "indent_level": ,

@@ -48,6 +48,7 @@ create table dota2_heroes(
     primary_attr int,               
     complexity int
 );
+create unique index on dota2_heroes(id); 
 
 -- 物品能力表格
 create table dota2_itemabilities(
@@ -58,6 +59,7 @@ create table dota2_itemabilities(
     is_item bool not null,              -- 是物品或技能
     neutral_item_tier int not null      -- 中立物品
 );
+create unique index on dota2_itemabilities(id);
 
 -- 所有版本表格
 create table dota2_patches(
@@ -65,6 +67,7 @@ create table dota2_patches(
     patch_number varchar(200) not null,           -- 版本号
     patch_timestamp timestamp not null            -- 日期和时间
 );
+create unique index on dota2_patches(patch_name);
 
 -- 当前版本信息表格
 create type type1 as enum('generic', 'items', 'neutral_items', 'heroes', 'neutral_creeps'); -- 综合，物品，中立，英雄    
@@ -80,6 +83,7 @@ create table dota2_curPatch(
     ability_id int,           -- 物品或技能id
     hero_id int                    -- 英雄id
 );
+create index on dota2_curPatch(patch_name_id, cur_type1, cur_type2, ability_id, hero_id);
 ```
 
 ## 页面展示逻辑
